@@ -30,8 +30,8 @@ public class TransferClientRequest {
     @ElementCollection
     private List<Integer> childrenAges;
 
-    @ManyToMany
-    private List<TransferExtra> extras;
+//    @ManyToMany
+//    private List<TransferExtra> extras;
 
     private TransferType transferType;
 

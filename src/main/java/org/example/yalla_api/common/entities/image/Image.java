@@ -1,8 +1,10 @@
 package org.example.yalla_api.common.entities.image;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 import org.hibernate.annotations.JdbcTypeCode;
 
 import java.sql.Types;
@@ -20,6 +22,8 @@ public class Image {
 
     @Column(name = "image", unique = false, nullable = false)
     @JdbcTypeCode(Types.VARBINARY)
+    @JsonIgnore
+    @ToString.Exclude
     private byte[] image;
 
 

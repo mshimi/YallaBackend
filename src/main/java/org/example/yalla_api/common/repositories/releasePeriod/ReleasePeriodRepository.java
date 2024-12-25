@@ -36,4 +36,11 @@ public interface ReleasePeriodRepository extends BaseRepository<ReleasePeriod, L
             "AND (r.startDate <= :endDate AND r.endDate >= :startDate)")
     List<ReleasePeriod> findOverlappingReleases(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
+
+
+    @Query("SELECT r FROM ReleasePeriod r WHERE r.isGeneral = false AND r.isActive = true AND " +
+            "(r.startDate <= :endDate AND r.endDate >= :startDate)")
+    List<ReleasePeriod> findActiveReleasesWithinDates(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
+
 }

@@ -26,9 +26,7 @@ public class ReleasePeriod {
     @Column(nullable = false)
     private Boolean isActive = true;
 
-    @CreatedDate
-    @Column(updatable = false)
-    private LocalDate createdAt;
+
 
     @Column(nullable = false)
     private Boolean isGeneral = false; // General release or specific release
