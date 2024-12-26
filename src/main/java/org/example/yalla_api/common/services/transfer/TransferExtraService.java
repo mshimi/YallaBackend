@@ -37,7 +37,7 @@ public class TransferExtraService {
      * @return The found TransferExtra.
      */
 
-    public List<TransferExtra> findAllTransferExtras(){
+    public List<TransferExtra> findAllTransferExtras() {
         return transferExtraRepository.findAllByIsValidIsTrue();
     }
 
@@ -89,7 +89,7 @@ public class TransferExtraService {
      * @param paxValue The new pax value.
      */
     @Transactional
-    public void updatePaxValue(Long id, Integer paxValue) {
+    public void updatePaxValue(Long id, Double paxValue) {
         TransferExtra transferExtra = transferExtraRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("TransferExtra not found with ID: " + id));
         transferExtra.setPaxValue(paxValue);
@@ -131,7 +131,14 @@ public class TransferExtraService {
      */
     @Transactional
     public void deleteTranslation(Long translationId) {
-        transferExtraTranslationRepository.deleteById(translationId);
+        var translation = transferExtraTranslationRepository.findById(translationId).orElseThrow();
+
+        if (translation.getTransferExtra().getTranslations().size() == 1) {
+            throw new IllegalArgumentException("cant delete all translation of one Extra");
+        } else {
+            transferExtraTranslationRepository.delete(translation);
+        }
+
     }
 
     /**
@@ -148,29 +155,28 @@ public class TransferExtraService {
 
         Optional<TransferExtraTranslation> existingTranslation = transferExtraTranslationRepository.findByTransferExtra_IdAndLang(transferExtra.getId(), lang);
 
-        if(existingTranslation.isEmpty()){
+        if (existingTranslation.isEmpty()) {
             TransferExtraTranslation newTranslation = new TransferExtraTranslation();
             newTranslation.setTransferExtra(transferExtra);
             newTranslation.setLang(lang);
             newTranslation.setName(name);
             transferExtraTranslationRepository.save(newTranslation);
         } else {
-          var trans =  existingTranslation.get();
+            var trans = existingTranslation.get();
             trans.setName(name);
             transferExtraTranslationRepository.save(trans);
         }
 
 
-
-
     }
-/**
-        * Upload an image for a TransferExtra.
-            *
-            * @param transferExtraId The ID of the TransferExtra.
-            * @param file            The image file to upload.
-            * @throws IOException If an error occurs while reading the file.
- */
+
+    /**
+     * Upload an image for a TransferExtra.
+     *
+     * @param transferExtraId The ID of the TransferExtra.
+     * @param file            The image file to upload.
+     * @throws IOException If an error occurs while reading the file.
+     */
     @Transactional
     public void uploadImage(Long transferExtraId, MultipartFile file) throws IOException {
         TransferExtra transferExtra = transferExtraRepository.findById(transferExtraId)

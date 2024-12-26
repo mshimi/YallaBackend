@@ -9,7 +9,7 @@ public class TransferExtraDTO {
 
     private Long id;
 
-    private Integer paxValue; // Pax equivalent value
+    private Double paxValue; // Pax equivalent value
 
     private List<TransferExtraTranslationDTO> translations;
 

@@ -14,7 +14,7 @@ public class TransferExtra {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer paxValue; // Pax equivalent value
+    private Double paxValue; // Pax equivalent value
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true, optional = true)
     @JoinColumn(name = "image_id", referencedColumnName = "id", nullable = true)

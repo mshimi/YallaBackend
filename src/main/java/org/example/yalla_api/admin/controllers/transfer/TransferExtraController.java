@@ -67,7 +67,7 @@ public class TransferExtraController {
      * Update the pax value of a TransferExtra.
      */
     @PatchMapping("/{id}/pax-value")
-    public ResponseEntity<Void> updatePaxValue(@PathVariable Long id, @RequestParam Integer paxValue) {
+    public ResponseEntity<Void> updatePaxValue(@PathVariable Long id, @RequestParam Double paxValue) {
         transferExtraService.updatePaxValue(id, paxValue);
         return ResponseEntity.accepted().build();
     }
@@ -95,7 +95,7 @@ public class TransferExtraController {
     /**
      * Delete a translation of a TransferExtra.
      */
-    @DeleteMapping("{id}/translation/")
+    @DeleteMapping("/translation/{id}")
     public ResponseEntity<Void> deleteTranslation(@PathVariable Long id) {
         transferExtraService.deleteTranslation(id);
         return ResponseEntity.noContent().build();
