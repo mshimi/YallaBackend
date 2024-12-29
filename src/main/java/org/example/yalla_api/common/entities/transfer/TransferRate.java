@@ -1,15 +1,19 @@
 package org.example.yalla_api.common.entities.transfer;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.example.yalla_api.common.entities.core.Area;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Data
 public class TransferRate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "source_area_id", nullable = false)
@@ -26,10 +30,11 @@ public class TransferRate {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    @UpdateTimestamp
+    private LocalDateTime updateAt;
+
 
 }

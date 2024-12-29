@@ -59,7 +59,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         // Allow unauthenticated access to authentication endpoints
-                        .requestMatchers("/auth/login","/core/**", "/images/**").permitAll()
+                        .requestMatchers("/auth/login","/core/**", "/images/**", "actuator/*").permitAll()
                         // Secure admin endpoints
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         // Secure controller endpoints

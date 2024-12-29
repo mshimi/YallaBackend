@@ -5,7 +5,6 @@ import org.example.yalla_api.common.entities.transfer.TransferRate;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-
 public interface TransferRateMapper {
 
     TransferRate toEntity (TransferRateDTO dto);

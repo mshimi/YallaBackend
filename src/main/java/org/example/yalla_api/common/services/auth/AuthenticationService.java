@@ -15,10 +15,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthenticationService implements IAuth {
 
-    @Autowired
-   private UserService userService;
+
+   private final UserService userService;
 
 
+
+  public   AuthenticationService (UserService userService){
+        this.userService = userService;
+    }
 
     @Autowired
     private PasswordEncoder passwordEncoder;

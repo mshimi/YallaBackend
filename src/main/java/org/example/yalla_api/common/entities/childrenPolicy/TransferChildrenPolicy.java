@@ -1,7 +1,6 @@
 package org.example.yalla_api.common.entities.childrenPolicy;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,5 +9,10 @@ import lombok.EqualsAndHashCode;
 @Data
 @DiscriminatorValue("TRANSFERS")
 public class TransferChildrenPolicy extends ChildrenPolicy {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
 }
 

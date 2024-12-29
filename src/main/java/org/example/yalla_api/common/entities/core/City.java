@@ -3,6 +3,7 @@ package org.example.yalla_api.common.entities.core;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.example.yalla_api.common.entities.auditmetadata.AuditEntityListener;
 import org.example.yalla_api.common.entities.image.Image;
 
 
@@ -13,6 +14,7 @@ import org.example.yalla_api.common.entities.image.Image;
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = {"cityName","cityCode" ,"country_id"})
         })
+@EntityListeners(AuditEntityListener.class) // Register the listener
 public class City {
 
     @Id

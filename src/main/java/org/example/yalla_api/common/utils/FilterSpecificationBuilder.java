@@ -4,6 +4,7 @@ import jakarta.persistence.criteria.*;
 import org.apache.el.parser.AstGreaterThanEqual;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -106,6 +107,9 @@ public class FilterSpecificationBuilder<T> {
 
         if (fieldType.equals(Boolean.class)) {
             return criteriaBuilder.equal(path.as(Boolean.class), Boolean.parseBoolean(fieldValue));
+        }
+        if(fieldType.equals(LocalDateTime.class)){
+            return criteriaBuilder.like(criteriaBuilder.lower(path.as(String.class)), "%" + fieldValue.toLowerCase() + "%");
         }
 
         throw new IllegalArgumentException("Unsupported field type for filtering: " + fieldType.getName());

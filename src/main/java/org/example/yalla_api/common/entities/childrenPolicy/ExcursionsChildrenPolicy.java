@@ -1,7 +1,6 @@
 package org.example.yalla_api.common.entities.childrenPolicy;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,4 +9,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @DiscriminatorValue("EXCURSIONS")
 public class ExcursionsChildrenPolicy extends ChildrenPolicy {
+
+
 }

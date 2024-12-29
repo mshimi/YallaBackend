@@ -12,7 +12,6 @@ public class TransferRateDTO {
 
     private Long id;
 
-
     private AreaDTO sourceArea;
 
     private AreaDTO destinationArea;

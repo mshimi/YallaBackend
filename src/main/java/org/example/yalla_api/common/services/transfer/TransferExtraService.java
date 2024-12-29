@@ -133,7 +133,7 @@ public class TransferExtraService {
     public void deleteTranslation(Long translationId) {
         var translation = transferExtraTranslationRepository.findById(translationId).orElseThrow();
 
-        if (translation.getTransferExtra().getTranslations().size() == 1) {
+        if (transferExtraTranslationRepository.countAllByTransferExtra(translation.getTransferExtra()) <=1  ) {
             throw new IllegalArgumentException("cant delete all translation of one Extra");
         } else {
             transferExtraTranslationRepository.delete(translation);

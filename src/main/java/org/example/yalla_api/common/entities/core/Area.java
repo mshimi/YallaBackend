@@ -3,6 +3,7 @@ package org.example.yalla_api.common.entities.core;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.example.yalla_api.common.entities.auditmetadata.AuditEntityListener;
 import org.springframework.data.annotation.Reference;
 
 @Entity
@@ -12,6 +13,7 @@ import org.springframework.data.annotation.Reference;
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = {"areaName", "city_id"})
         })
+@EntityListeners(AuditEntityListener.class) // Register the listener
 public class Area {
 
     @Id

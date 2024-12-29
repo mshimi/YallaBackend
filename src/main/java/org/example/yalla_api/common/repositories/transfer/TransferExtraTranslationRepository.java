@@ -1,5 +1,6 @@
 package org.example.yalla_api.common.repositories.transfer;
 
+import org.example.yalla_api.common.entities.transfer.TransferExtra;
 import org.example.yalla_api.common.entities.transfer.TransferExtraTranslation;
 import org.example.yalla_api.common.enums.Language;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,4 +14,8 @@ public interface TransferExtraTranslationRepository extends JpaRepository<Transf
 
 
     Optional<TransferExtraTranslation> findByTransferExtra_IdAndLang(Long transferExtraId, Language lang);
+
+    Integer countAllByTransferExtra(TransferExtra extra);
+
+
 }

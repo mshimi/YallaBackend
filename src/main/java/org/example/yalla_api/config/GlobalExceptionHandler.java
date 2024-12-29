@@ -2,14 +2,17 @@ package org.example.yalla_api.config;
 
 import org.example.yalla_api.common.exceptions.ErrorResponse;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.context.MessageSourceResolvable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
 
 
 import java.sql.SQLException;
@@ -49,9 +52,29 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
+
+
+    @ExceptionHandler(HandlerMethodValidationException.class)
+    public ResponseEntity<ErrorResponse> handleHandlerMethodValidationException(HandlerMethodValidationException ex) {
+        List<String> details = ex.getAllErrors()
+                .stream()
+                .map(MessageSourceResolvable::getDefaultMessage)
+                .collect(Collectors.toList());
+
+        ErrorResponse error = new ErrorResponse(
+                LocalDateTime.now(),
+                "Validation Failure",
+                HttpStatus.BAD_REQUEST.value(),
+                details
+        );
+
+        return ResponseEntity.badRequest().body(error);
+    }
+
     // Handle @Valid annotation errors (for DTOs or form requests)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
+        System.out.println("Exception Caught: " + ex.getClass());
         List<String> details = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()

@@ -11,29 +11,22 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "policy_type", discriminatorType = DiscriminatorType.STRING)
 @Data
-@EntityListeners(AuditingEntityListener.class)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Entity
 abstract public class ChildrenPolicy {
+
+
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO) // Use AUTO for TABLE_PER_CLASS
     private Long id;
 
-    @CreatedBy
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by")
-    private User createdBy;
-
-    @CreatedDate
-    @Column(updatable = false)
-    private Date createdAt;
 
     @OneToMany(mappedBy = "childrenPolicy", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AgeRange> ageRanges;
 
-    private boolean isActive;
+    private boolean isActive = true;
 
 
 }
