@@ -62,7 +62,7 @@ public class TransferRateController {
     @PostMapping
     public ResponseEntity<TransferRateDTO> addTransferRate(
             @Valid  @RequestBody AddTransferRateDTO dto) {
-        TransferRate transferRate = transferRateService.addTransferRate(dto.getSourceAreaId(), dto.getDestinationAreaId(), dto.getRate());
+        TransferRate transferRate = transferRateService.addTransferRate(dto.getSourceAreaId(), dto.getDestinationAreaId(), dto.getRate(), dto.getRelease());
         return ResponseEntity.ok(transferRateMapper.toDto(transferRate));
     }
 

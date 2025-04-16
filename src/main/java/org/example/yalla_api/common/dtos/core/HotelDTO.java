@@ -16,6 +16,7 @@ public class HotelDTO {
     @NotBlank(message = "Hotel Name is mandatory")
     private String hotelName;
 
-    @NotBlank(message = "Area is mandatory")
+    @NotNull(message = "Area is mandatory")
+    @Valid
     private AreaDTO area;
 }

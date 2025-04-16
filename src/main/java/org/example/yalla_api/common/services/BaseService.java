@@ -27,6 +27,10 @@ public abstract class BaseService<T, ID> {
         return getRepository().findById(id);
     }
 
+    public List<T> findAllById(List<ID> id) {
+       return getRepository().findAllById(id);
+    }
+
     public T update(ID id, T dto) {
         T existingEntity = getRepository().findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Entity not found"));

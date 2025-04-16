@@ -1,5 +1,6 @@
 package org.example.yalla_api.common.entities.transfer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.example.yalla_api.common.entities.image.Image;
@@ -18,6 +19,7 @@ public class TransferExtra {
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true, optional = true)
     @JoinColumn(name = "image_id", referencedColumnName = "id", nullable = true)
+
     private Image image;
 
     @OneToMany(mappedBy = "transferExtra", cascade = CascadeType.ALL, orphanRemoval = true)

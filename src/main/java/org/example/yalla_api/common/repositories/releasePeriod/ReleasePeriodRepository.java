@@ -43,4 +43,10 @@ public interface ReleasePeriodRepository extends BaseRepository<ReleasePeriod, L
     List<ReleasePeriod> findActiveReleasesWithinDates(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
 
+    @Query("SELECT r FROM ReleasePeriod r WHERE r.isGeneral = false AND r.isActive = true AND " +
+            "(r.startDate <= :travelDate AND r.endDate >= :travelDate)")
+    List<ReleasePeriod> getReleaseForTravelDate(@Param("travelDate") LocalDate travelDate);
+
+
+
 }

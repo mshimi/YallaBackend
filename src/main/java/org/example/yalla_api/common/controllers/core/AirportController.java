@@ -8,6 +8,7 @@ import org.example.yalla_api.common.services.core.AirportService;
 import org.example.yalla_api.config.annotations.AdminOnly;
 import org.example.yalla_api.config.annotations.AdminOrControllerOnly;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +23,7 @@ import java.util.Map;
 @RequestMapping("/core/airport")
 public class AirportController {
 
+    @Qualifier("airportMapperImpl")
     @Autowired
     private AirportMapper mapper;
 

@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+
+  postgres:
+    image: postgres
+    container_name: postgres-container
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: shimi1992
+      POSTGRES_DB: yalla_db
+    ports:
+      - "8085:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  springboot-app:
+    image: yalla-api:latest
+    container_name: yalla-api-container
+    ports:
+      - "8084:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-container:5432/yalla_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: shimi1992
+    networks:
+      - app-network
+
+  frontend-app:
+    image: yalla-admin:latest
+    container_name: yalla-admin-container
+    ports:
+      - "3000:80"
+    environment:
+      VITE_REACT_APP_API_URL: http://yalla-api-container:8081/api/v1
+    networks:
+      - app-network
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+    networks:
+      - app-network
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    ports:
+      - "9092:9092"
+    networks:
+      - app-network
+
+volumes:
+  postgres-data:
+
+networks:
+  app-network:
+    driver: bridge

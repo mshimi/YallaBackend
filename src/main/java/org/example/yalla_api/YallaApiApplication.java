@@ -41,6 +41,8 @@ public class YallaApiApplication implements CommandLineRunner {
            User user = new User();
            user.setRole(Role.ADMIN);
            user.setUsername("admin");
+           user.setName("Shimi");
+           user.setFirstName("Mahmoud");
            user.setPassword(passwordEncoder.encode("admin"));
           System.out.print( userRepository.save(user));
        }

@@ -30,6 +30,9 @@ public class TransferRate {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
 
+    @Column(nullable = false)
+    private Integer release = 0;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 

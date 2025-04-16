@@ -5,8 +5,10 @@ import org.example.yalla_api.common.entities.image.Image;
 import org.example.yalla_api.common.entities.transfer.TransferExtra;
 import org.example.yalla_api.common.entities.transfer.TransferExtraTranslation;
 import org.example.yalla_api.common.enums.Language;
+import org.example.yalla_api.common.repositories.BaseRepository;
 import org.example.yalla_api.common.repositories.transfer.TransferExtraRepository;
 import org.example.yalla_api.common.repositories.transfer.TransferExtraTranslationRepository;
+import org.example.yalla_api.common.services.BaseService;
 import org.example.yalla_api.common.services.Image.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,7 @@ import java.util.Optional;
 
 
 @Service
-public class TransferExtraService {
+public class TransferExtraService extends BaseService<TransferExtra,Long> {
 
     @Autowired
     private TransferExtraRepository transferExtraRepository;
@@ -216,4 +218,8 @@ public class TransferExtraService {
     }
 
 
+    @Override
+    protected BaseRepository<TransferExtra, Long> getRepository() {
+        return this.transferExtraRepository;
+    }
 }

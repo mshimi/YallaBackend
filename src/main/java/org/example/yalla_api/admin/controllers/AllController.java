@@ -1,5 +1,9 @@
 package org.example.yalla_api.admin.controllers;
 
+import org.example.yalla_api.admin.dtos.transfer.TestBookingResponse;
+import org.example.yalla_api.admin.services.TransferTestBookingService;
+import org.example.yalla_api.config.annotations.AdminOnly;
+import org.example.yalla_api.config.annotations.PublicAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -9,9 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -41,6 +44,22 @@ public class AllController {
                         "handler", entry.getValue().toString()
                 ))
                 .collect(Collectors.toList());
+    }
+
+    @Autowired
+    TransferTestBookingService transferTestBookingService;
+
+    @GetMapping("test1")
+    @PublicAccess
+    public ResponseEntity<TestBookingResponse> test1() {
+
+        LocalDate today = LocalDate.now().minusDays(100);
+        List<Integer> children = List.of(1,  10,  15);
+        Map<Integer,Long> extas = new HashMap<>();
+        extas.put(1, 6L);
+      var value =  transferTestBookingService.testBooking(8L,8L,2,children,today,extas);
+
+        return ResponseEntity.ok(value);
     }
 
     // Other admin endpoints

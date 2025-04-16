@@ -7,7 +7,6 @@ import org.example.yalla_api.common.entities.core.Area;
 import org.example.yalla_api.common.entities.transfer.TransferRate;
 import org.example.yalla_api.common.repositories.core.AreaRepository;
 import org.example.yalla_api.common.repositories.transfer.TransferRateRepository;
-import org.example.yalla_api.common.services.core.AreaService;
 import org.example.yalla_api.common.utils.FilterSpecificationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,7 +31,7 @@ public class TransferRateService  {
      * Add a new TransferRate using area IDs.
      */
 
-    public TransferRate addTransferRate(Long sourceAreaId, Long destinationAreaId, Double rate) {
+    public TransferRate addTransferRate(Long sourceAreaId, Long destinationAreaId, Double rate, Integer release) {
         // Ensure no active rate exists for the same source and destination areas
         deactivateExistingRates(sourceAreaId, destinationAreaId);
 
@@ -45,8 +44,14 @@ public class TransferRateService  {
         transferRate.setRatePerPerson(rate);
         transferRate.setIsActive(true);
 
+        if(release != null){
+            transferRate.setRelease(release);
+        }
+
         return transferRateRepository.save(transferRate);
     }
+
+
 
     public List<TransferRate> addTransferRatesFromDTO(List<AddTransferRateDTO> rateDtos) {
         // Process each DTO and add transfer rates
@@ -62,6 +67,7 @@ public class TransferRateService  {
             transferRate.setSourceArea(sourceArea);
             transferRate.setDestinationArea(destinationArea);
             transferRate.setRatePerPerson(dto.getRate());
+            transferRate.setRelease(dto.getRelease());
             transferRate.setIsActive(true);
 
             return transferRateRepository.save(transferRate);

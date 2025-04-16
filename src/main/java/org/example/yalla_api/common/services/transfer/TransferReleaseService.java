@@ -8,7 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TransferReleaseService {
@@ -194,5 +196,24 @@ public class TransferReleaseService {
             throw new IllegalArgumentException("invalid General Release");
         }
     }
+
+
+
+
+
+    public Integer findReleaseDaysForTravelDate(LocalDate travelDate) {
+      List<ReleasePeriod> releasePeriods =  releasePeriodRepository.getReleaseForTravelDate(travelDate);
+
+      if(releasePeriods.isEmpty()){
+        ReleasePeriod generalRelease =  getGeneralReleasePeriod();
+        if(generalRelease != null){
+            return generalRelease.getReleaseDays();
+        }
+        return 0;
+      }
+      return releasePeriods.stream().max(Comparator.comparing(ReleasePeriod::getReleaseDays)).get().getReleaseDays();
+    }
+
+
 
 }

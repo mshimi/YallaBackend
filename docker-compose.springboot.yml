@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  springboot-app:
+    image: yalla-api:latest
+    container_name: yalla-api-container
+    ports:
+      - "8084:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-container:5432/yalla_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: shimi1992
+    networks:
+      - app-network
+networks:
+  app-network:
+    external: true

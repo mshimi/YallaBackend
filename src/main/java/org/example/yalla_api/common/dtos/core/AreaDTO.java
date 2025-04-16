@@ -17,6 +17,7 @@ public class AreaDTO {
     private String areaName;
 
 
-@NotBlank(message = "City is mandatory")
+@NotNull(message = "City is mandatory")
+@Valid
     private CityDTO city;
 }

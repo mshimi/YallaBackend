@@ -17,7 +17,7 @@ public class CityDTO {
     private String cityName;
     @NotBlank(message = "City Code is mandatory")
     private String cityCode;
-    @NotBlank(message = "Country is mandatory")
+
     @NotNull(message = "Country can't be null")
     @Valid
     private CountryDTO country;

@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres
+    container_name: postgres-container
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: shimi1992
+      POSTGRES_DB: yalla_db
+    ports:
+      - "8085:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+networks:
+  app-network:
+    external: true
+
+
+volumes:
+  postgres-data:

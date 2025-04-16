@@ -48,7 +48,7 @@ public class ChildrenPolicyService {
      *
      * @return The active ChildrenPolicy.
      */
-    private ChildrenPolicy getActiveChildrenPolicy() {
+    public ChildrenPolicy getActiveChildrenPolicy() {
         return childrenPolicyRepository.findActivePolicy()
                 .orElseThrow(() -> new IllegalStateException("No active ChildrenPolicy found"));
     }

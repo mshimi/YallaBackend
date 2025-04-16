@@ -24,4 +24,6 @@ public class TransferRateDTO {
 
     private LocalDateTime updatedAt;
 
+    private Integer release;
+
 }
