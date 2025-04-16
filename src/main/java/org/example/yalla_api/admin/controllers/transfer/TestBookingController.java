@@ -29,7 +29,7 @@ public class TestBookingController {
     @Autowired
   private  TestBookingResponseMapper testBookingResponseMapper;
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<TestBookingResponseDTO> testBooking(@RequestBody @Valid TestBookingRequestDTO dto) {
       TestBookingResponse response = transferTestBookingService.testBooking(dto.getStartAreaId(), dto.getEndAreaId(), dto.getAdults(),dto.getChild(),dto.getStartDate(),dto.getExtras());
 

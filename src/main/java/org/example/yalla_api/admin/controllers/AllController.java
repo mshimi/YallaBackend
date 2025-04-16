@@ -46,21 +46,7 @@ public class AllController {
                 .collect(Collectors.toList());
     }
 
-    @Autowired
-    TransferTestBookingService transferTestBookingService;
 
-    @GetMapping("test1")
-    @PublicAccess
-    public ResponseEntity<TestBookingResponse> test1() {
-
-        LocalDate today = LocalDate.now().minusDays(100);
-        List<Integer> children = List.of(1,  10,  15);
-        Map<Integer,Long> extas = new HashMap<>();
-        extas.put(1, 6L);
-      var value =  transferTestBookingService.testBooking(8L,8L,2,children,today,extas);
-
-        return ResponseEntity.ok(value);
-    }
 
     // Other admin endpoints
 }

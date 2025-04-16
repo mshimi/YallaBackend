@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
+/**
 @Data
 @Entity
 public class ExcursionRate {
@@ -17,3 +18,4 @@ public class ExcursionRate {
 
     private Boolean isActive = true; // Rate can be marked inactive
 }
+**/

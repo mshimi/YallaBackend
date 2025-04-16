@@ -1,10 +1,12 @@
 package org.example.yalla_api.common.entities.excursion;
 
+/**
 import jakarta.persistence.*;
 import lombok.Data;
+import org.example.yalla_api.common.entities.excursion.excursions.Excursion;
+import org.example.yalla_api.common.entities.excursion.rate.ExcursionOffer;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Data
@@ -33,3 +35,4 @@ public class ExcursionDate {
 
 
 }
+**/
